@@ -3,12 +3,8 @@ pipeline {
     tools{
       maven 'mvn'
     }
-  environment {
-            GIT_REPO_NAME = "Jenkins-project-2"
-            GIT_USER_NAME = "harasindhu"
-        }
-  
-  stages {
+ 
+ stages {
     stage('Checkout') {
       steps {
          git branch: 'main', url: 'https://github.com/iamkishore0/maven_project.git'
@@ -17,8 +13,6 @@ pipeline {
     
    stage('Build and Test') {
       steps {
-        sh 'ls -ltr'
-        // build the project and create a JAR file
         sh 'mvn clean package'
       }
     }
@@ -58,6 +52,24 @@ pipeline {
             }
         }
       }
+  stage('Update Deployment File') {
+        environment {
+            GIT_REPO_NAME = "Jenkins-project-2"
+            GIT_USER_NAME = "harasindhu"
+        }
+        steps {
+            withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+                sh '''
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                '''
+            }
+        }
+    }
+  }
     }
  }
 
