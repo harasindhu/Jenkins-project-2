@@ -1,9 +1,9 @@
 pipeline {
-  agent {
-    docker {
-      image 'abhishekf5/maven-abhishek-docker-agent:v1'
-      }
-  }
+ agent any
+    tools{
+      maven 'mvn'
+    }
+  
   stages {
     stage('Checkout') {
       steps {
