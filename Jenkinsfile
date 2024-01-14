@@ -14,14 +14,16 @@ pipeline {
          git branch: 'main', url: 'https://github.com/iamkishore0/maven_project.git'
        }
     }
-    stage('Build and Test') {
+    
+   stage('Build and Test') {
       steps {
         sh 'ls -ltr'
         // build the project and create a JAR file
         sh 'mvn clean package'
       }
     }
-    stage('Static Code Analysis') {
+   
+   stage('Static Code Analysis') {
       environment {
        
             scannerHome = tool 'sonarqube'
@@ -41,7 +43,8 @@ pipeline {
         }
       }
     }
-    stage('Build and Push Docker Image') {
+   
+   stage('Build and Push Docker Image') {
       environment {
         DOCKER_IMAGE = "myproject/ultimate-cicd:${BUILD_NUMBER}"
         DOCKER_REGISTRY = 'docker.io/sindhu212'
@@ -56,12 +59,13 @@ pipeline {
         }
       }
     }
-  stage('deploy') {
-    steps {
-       script {
+ 
+ stage('Deploying App to Kubernetes') {
+      steps {
+        script {
           kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
         }
-        }
+      }
     }
 }
 
