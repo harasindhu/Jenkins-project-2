@@ -18,12 +18,8 @@ spec:
     spec:
       containers:
       - name: sample-tomcat
-        image: tomee
+        image: myproject/ultimate-cicd:replaceImageTag
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
+ 
