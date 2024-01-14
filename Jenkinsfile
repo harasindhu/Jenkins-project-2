@@ -52,7 +52,7 @@ pipeline {
         }
       }
     }
-   stage('Deployment') {
+   stage('Deployment'){
        environment {
             GIT_REPO_NAME = "Jenkins-project-2"
             GIT_USER_NAME = "harasindhu"
