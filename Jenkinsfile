@@ -23,10 +23,10 @@ pipeline {
              withSonarQubeEnv('sonarqube'){
 
                  sh "${scannerHome}/bin/sonar-scanner \
-                  -Dsonar.login=b34a4d7235a4f574bfa64d127fb1f124e5174c6f \
+                  -Dsonar.login=8f1eb2eccea095ed5e8c4594d34e3295aed3d0c5\
                   -Dsonar.host.url=https://sonarcloud.io \
-                  -Dsonar.organization= sindhu123\
-                  -Dsonar.projectKey=sindhu123 \
+                  -Dsonar.organization= sindhu212\
+                  -Dsonar.projectKey=sindhu212 \
                   -Dsonar.java.binaries=./ "
         }
       }
