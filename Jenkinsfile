@@ -62,9 +62,9 @@ pipeline {
                 sh '''
                     git config user.email "harasindhu.kallu@gmail.com"
                     git config user.name "harasindhu"
-                    BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" Jenkins-project-2 /deployment.yaml
-                    git add Jenkins-project-2 /deployment.yaml
+                    ${BUILD_NUMBER}=${BUILD_NUMBER}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" harasindhu/Jenkins-project-2 /deployment.yaml
+                    git add harasindhu/Jenkins-project-2 /deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
