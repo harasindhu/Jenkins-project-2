@@ -32,20 +32,26 @@ pipeline {
       }
     }
    
-   stage('Build and Push Docker Image') {
-      environment {
-        DOCKER_IMAGE = "myproject/ultimate-cicd:${BUILD_NUMBER}"
-        DOCKER_REGISTRY = 'docker.io/sindhu212'
-        REGISTRY_CREDENTIALS = credentials('docker-cred')
-      }
-      steps {
+    stage('Build image') {
+      steps{
         script {
-            // Docker build and push
-          sh "docker build -t ${DOCKER_REGISTRY}/your-app:${BUILD_NUMBER} ."
-          sh "docker push ${DOCKER_REGISTRY}/your-app:${BUILD_NUMBER}"
-            }
+          dockerImage = docker.build dockerimagename
         }
       }
+    }
+
+    stage('Pushing Image') {
+      environment {
+               registryCredential = 'dockerhublogin'
+           }
+      steps{
+        script {
+          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+            dockerImage.push("latest")
+          }
+        }
+      }
+    }
   stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "Jenkins-project-2"
