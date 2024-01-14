@@ -26,7 +26,7 @@ pipeline {
                   -Dsonar.login=8f1eb2eccea095ed5e8c4594d34e3295aed3d0c5\
                   -Dsonar.host.url=https://sonarcloud.io \
                   -Dsonar.organization= sindhu212\
-                  -Dsonar.projectKey=sindhu212 \
+                  -Dsonar.projectKey=sindhu212:sindhu212 \
                   -Dsonar.java.binaries=./ "
         }
       }
