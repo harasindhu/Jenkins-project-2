@@ -3,6 +3,10 @@ pipeline {
     tools{
       maven 'mvn'
     }
+  environment {
+            GIT_REPO_NAME = "Jenkins-project-2"
+            GIT_USER_NAME = "harasindhu"
+        }
   
   stages {
     stage('Checkout') {
@@ -52,11 +56,7 @@ pipeline {
         }
       }
     }
-   "stage"('Update Deployment File') {
-       environment {
-            GIT_REPO_NAME = "Jenkins-project-2"
-            GIT_USER_NAME = "harasindhu"
-        }
+   stage('Update Deployment File') {
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
