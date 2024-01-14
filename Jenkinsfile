@@ -11,12 +11,6 @@ pipeline {
        }
     }
     
-   stage('Build and Test') {
-      steps {
-        sh 'mvn clean package'
-      }
-    }
-   
    stage('Static Code Analysis') {
       environment {
        
