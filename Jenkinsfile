@@ -41,6 +41,7 @@ pipeline {
       environment {
         DOCKER_IMAGE = "myproject/ultimate-cicd:${BUILD_NUMBER}"
         DOCKER_REGISTRY = 'docker.io/sindhu212'
+        REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
       steps {
         script {
