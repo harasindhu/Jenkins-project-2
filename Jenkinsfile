@@ -19,8 +19,8 @@ pipeline {
     }
     stage('Static Code Analysis') {
       environment {
-
-                scannerHome = tool 'sonarqube'
+       
+            scannerHome = tool 'sonarqube'
 
             }
 
