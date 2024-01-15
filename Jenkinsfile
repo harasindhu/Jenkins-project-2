@@ -10,6 +10,12 @@ pipeline {
          git branch: 'main', url: 'https://github.com/iamkishore0/maven_project.git'
        }
     }
+  stage('Build and Test') {
+      steps {
+        // build the project and create a JAR file
+        sh 'mvn install'
+      }
+    }
     
    stage('Static Code Analysis') {
       environment {
